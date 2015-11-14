@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+{{typeName}} request received.
+</head>
+<body>
+
+<table>
+	
+	<tr>
+		<th align='left'>Key</th>
+		<th align='left'>Data</th>
+	</tr>
+	{{#each dataList}}
+	<tr>
+		<td>{{this.name}}</td>
+		<td>{{this.value}}</td>
+	</tr>
+	{{/each}}
+</table>
+</body>
+</html>
