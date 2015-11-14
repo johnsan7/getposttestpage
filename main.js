@@ -22,22 +22,22 @@ app.get('/show-data', function(req, res){
 	context.dataList = params;
 	context.typeName = 'GET';
 	res.render('getPrinter', context);
-	console.log(context);
+	//console.log(context);
 	
 });
 
 app.post('/show-data', function(req, res){
-	console.log('got into post function');
+	//console.log('got into post function');
 	var parameters = [];
 	
 	for(var p in req.body)
 	{
 		parameters.push({'name':p, 'value':req.body[p]});
-		console.log('getting in post loop');
+		//console.log('getting in post loop');
 		
 	}
 	var context = {};
-	console.log(parameters);
+	//console.log(parameters);
 	context.dataList = parameters;
 	context.typeName = 'POST';
 	res.render('getPrinter', context);
@@ -56,13 +56,13 @@ app.use(function(req,res){
 });
 
 app.use(function(err,req,res,next){
-	console.error(err.stack);
+	//console.error(err.stack);
 	res.type('plain/text');
 	res.status(500);
 	res.render('500');	
 });
 
 app.listen(app.get('port'), function(){
-	console.log('Nice page dipshit!');
+	console.log('Started on port 3000');
 	
 });
