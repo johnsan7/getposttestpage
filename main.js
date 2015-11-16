@@ -1,4 +1,4 @@
-
+//This code is straight out of the lecture, and is just set up. I changed the port number though
 
 var express = require('express');
 
@@ -11,49 +11,55 @@ app.use(bodyParser.json());
 
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
-app.set('port', 3000);
+app.set('port', 1236);
+
+
+//This is my get handler, the code is very similar to the lecture code since there not a lot of 
+//Creative ways to do this. I have different names for variables and I have a typeName variable so
+//I can have it tell you whether it was a post request. 
 
 app.get('/show-data', function(req, res){
-	var params = [];
-	for(var p in req.query){
-		params.push({'name' :p, 'value' :req.query[p]})
+	var outList = [];  //Creates an "array" to add all data elements from the get received
+	for(var thing in req.query){	//Pushese each key and value onto the array of data
+		outList.push({'name' :thing, 'value' :req.query[thing]});
 	}
-	var context = {};
-	context.dataList = params;
-	context.typeName = 'GET';
-	res.render('getPrinter', context);
-	//console.log(context);
+	console.log(outList);
+	var htmlObject = {};	//Creates an object to pass to the handlebars page
+	htmlObject.dataList = outList;	//puts the list of things received into a dataList variable
+	htmlObject.typeName = 'GET';		//Adds the name get as typeName so html page can report correctly
+	res.render('getPrinter', htmlObject); 	//Displays output HTML page feeding it the object created 
+											//to hold the data. 
 	
 });
 
+//This is my post handler, the code is very similar to the lecture code since there not a lot of 
+//Creative ways to do this. I have different names for variables and I have a typeName variable so
+//I can have it tell you whether it was a post request.
+
 app.post('/show-data', function(req, res){
-	//console.log('got into post function');
-	var parameters = [];
+	console.log('got into post function');
+	var outList = [];  //Creates an "array" to add all data elements from the get received
 	
-	for(var p in req.body)
+	for(var thing in req.body)	//Pushese each key and value onto the array of data
 	{
-		parameters.push({'name':p, 'value':req.body[p]});
-		//console.log('getting in post loop');
+		outList.push({'name':thing, 'value':req.body[thing]});
+		console.log('getting in post loop');
 		
 	}
-	var context = {};
-	//console.log(parameters);
-	context.dataList = parameters;
-	context.typeName = 'POST';
-	res.render('getPrinter', context);
-});
-/*
-app.get('/other-page', function(req,res){
-	res.render('other-page')
-	
-	
-});
-*/
+	var htmlObject = {};  //Creates an object to pass to the handlebars page
+	console.log(outList);
+	htmlObject.dataList = outList;		//puts the list of things received into a dataList variable
+	htmlObject.typeName = 'POST';			//Adds the name post as typeName so html page can report correctly
+	res.render('getPrinter', htmlObject);	//Displays output HTML page feeding it the object created 
+});											//to hold the data. 
+
+//This is code straight out of the lecture and was written by the professor
 
 app.use(function(req,res){
 	res.status(404);
 	res.render('404');
 });
+//This is code straight out of the lecture and was written by the professor
 
 app.use(function(err,req,res,next){
 	//console.error(err.stack);
@@ -62,7 +68,8 @@ app.use(function(err,req,res,next){
 	res.render('500');	
 });
 
+//This is code straight out of the lecture and was written by the professor, except for my console message
 app.listen(app.get('port'), function(){
-	console.log('Started on port 3000');
+	console.log('Started on port 1236');
 	
 });
