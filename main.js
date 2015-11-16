@@ -23,7 +23,7 @@ app.get('/show-data', function(req, res){
 	for(var thing in req.query){	//Pushese each key and value onto the array of data
 		outList.push({'name' :thing, 'value' :req.query[thing]});
 	}
-	console.log(outList);
+	//console.log(outList);
 	var htmlObject = {};	//Creates an object to pass to the handlebars page
 	htmlObject.dataList = outList;	//puts the list of things received into a dataList variable
 	htmlObject.typeName = 'GET';		//Adds the name get as typeName so html page can report correctly
@@ -37,17 +37,21 @@ app.get('/show-data', function(req, res){
 //I can have it tell you whether it was a post request.
 
 app.post('/show-data', function(req, res){
-	console.log('got into post function');
+	//console.log('got into post function');
 	var outList = [];  //Creates an "array" to add all data elements from the get received
+	
+	for(var thing in req.query){	//If POST data is sent in URL, this will add it to the list first then we push in the other data
+		outList.push({'name' :thing, 'value' :req.query[thing]});
+	}
 	
 	for(var thing in req.body)	//Pushese each key and value onto the array of data
 	{
 		outList.push({'name':thing, 'value':req.body[thing]});
-		console.log('getting in post loop');
+		//console.log('getting in post loop');
 		
 	}
 	var htmlObject = {};  //Creates an object to pass to the handlebars page
-	console.log(outList);
+	//console.log(outList);
 	htmlObject.dataList = outList;		//puts the list of things received into a dataList variable
 	htmlObject.typeName = 'POST';			//Adds the name post as typeName so html page can report correctly
 	res.render('getPrinter', htmlObject);	//Displays output HTML page feeding it the object created 
